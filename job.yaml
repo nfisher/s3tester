@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: s3tester
+  namespace: namespace-core
+spec:
+  template:
+    spec:
+      serviceAccountName: spans-s3-write-access
+      containers:
+      - name: s3tester
+        image: nfinstana/s3tester:latest
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: s3tester
+      restartPolicy: Never
+  backoffLimit: 4

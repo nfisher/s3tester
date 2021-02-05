@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: s3tester
+  namespace: namespace-core
+data:
+  AWS_DEFAULT_REGION: us-east-1
+  AWS_STS_REGIONAL_ENDPOINTS: regional
