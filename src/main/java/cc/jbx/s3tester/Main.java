@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import software.amazon.awssdk.core.sync.RequestBody;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.Bucket;
+import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -14,11 +15,20 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 public class Main {
     public static void main(String[] args) {
         S3Client s3 = S3Client.builder()
-            .region(Region.US_EAST_1)
             .build();
 
         String bucketName = System.getenv("BUCKET_NAME");
         try {
+            ListBucketsResponse bucketResponse = s3.listBuckets();
+            if (!bucketResponse.hasBuckets()) {
+                System.err.println("No buckets found!");
+                System.exit(1);
+            }
+
+            for (Bucket b : bucketResponse.buckets()) {
+                System.out.println(b.name());
+            }
+
             Map<String, String> metadata = new HashMap<>();
             PutObjectRequest putOb = PutObjectRequest.builder()
                 .bucket(bucketName)

@@ -13,11 +13,22 @@ import (
 )
 
 func main() {
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	sess, err := session.NewSession()
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
 	svc := s3.New(sess)
+
+	inp := &s3.ListBucketsInput{}
+	out, err := svc.ListBuckets(inp)
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+
+	for _, b := range out.Buckets {
+		log.Println(*b.Name)
+	}
 
 	obj := &s3.PutObjectInput{
 		Body:                 aws.ReadSeekCloser(strings.NewReader("contents")),
@@ -25,6 +36,7 @@ func main() {
 		Key:                  aws.String("test"),
 		//ServerSideEncryption: aws.String("AES256"),
 	}
+
 	result, err := svc.PutObject(obj)
 	if err != nil {
 		if aerr, ok := err.(awserr.Error); ok {

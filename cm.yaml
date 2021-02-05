@@ -6,3 +6,5 @@ metadata:
 data:
   AWS_DEFAULT_REGION: us-east-1
   AWS_STS_REGIONAL_ENDPOINTS: regional
+  BUCKET_NAME: amp-prod-network-d32f22f
+  REGION: us-east-1
