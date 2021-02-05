@@ -23,7 +23,7 @@ func main() {
 		Body:                 aws.ReadSeekCloser(strings.NewReader("contents")),
 		Bucket:               aws.String(os.Getenv("BUCKET_NAME")),
 		Key:                  aws.String("test"),
-		ServerSideEncryption: aws.String("AES256"),
+		//ServerSideEncryption: aws.String("AES256"),
 	}
 	result, err := svc.PutObject(obj)
 	if err != nil {
