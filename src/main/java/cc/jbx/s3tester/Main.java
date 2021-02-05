@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+import software.amazon.awssdk.auth.credentials.WebIdentityTokenFileCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.Bucket;
@@ -15,6 +16,7 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 public class Main {
     public static void main(String[] args) {
         S3Client s3 = S3Client.builder()
+            .credentialsProvider(WebIdentityTokenFileCredentialsProvider.create())
             .build();
 
         String bucketName = System.getenv("BUCKET_NAME");
