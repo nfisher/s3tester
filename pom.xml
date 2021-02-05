@@ -56,18 +56,6 @@
         </plugins>
     </build>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-java-sdk-bom</artifactId>
-                <version>1.11.949</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -77,18 +65,22 @@
         <dependency>
             <artifactId>aws-java-sdk-s3</artifactId>
             <groupId>com.amazonaws</groupId>
+            <version>1.11.949</version>
         </dependency>
         <dependency>
             <artifactId>aws-java-sdk-sts</artifactId>
             <groupId>com.amazonaws</groupId>
+            <version>1.11.949</version>
         </dependency>
         <dependency>
             <artifactId>aws-java-sdk-kms</artifactId>
             <groupId>com.amazonaws</groupId>
+            <version>1.11.949</version>
         </dependency>
         <dependency>
             <artifactId>aws-java-sdk-s3control</artifactId>
             <groupId>com.amazonaws</groupId>
+            <version>1.11.949</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
