@@ -1,49 +1,30 @@
 package cc.jbx.s3tester;
 
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import software.amazon.awssdk.auth.credentials.WebIdentityTokenFileCredentialsProvider;
-import software.amazon.awssdk.core.sync.RequestBody;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.Bucket;
-import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
-import software.amazon.awssdk.services.s3.model.S3Exception;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.PutObjectResult;
 
 public class Main {
     public static void main(String[] args) {
-        S3Client s3 = S3Client.builder()
-            .credentialsProvider(WebIdentityTokenFileCredentialsProvider.create())
-            .build();
-
         String bucketName = System.getenv("BUCKET_NAME");
-        try {
-            ListBucketsResponse bucketResponse = s3.listBuckets();
-            if (!bucketResponse.hasBuckets()) {
-                System.err.println("No buckets found!");
-                System.exit(1);
-            }
 
-            for (Bucket b : bucketResponse.buckets()) {
-                System.out.println(b.name());
-            }
+        AmazonS3ClientBuilder clientBuilder = AmazonS3ClientBuilder.standard();
+        AmazonS3 svc = clientBuilder.build();
+        List<Bucket> buckets = svc.listBuckets();
 
-            Map<String, String> metadata = new HashMap<>();
-            PutObjectRequest putOb = PutObjectRequest.builder()
-                .bucket(bucketName)
-                .key("javatest")
-                .metadata(metadata)
-                .build();
-
-            byte[] b = "hello world".getBytes(StandardCharsets.UTF_8);
-            PutObjectResponse response = s3.putObject(putOb, RequestBody.fromBytes(b));
-            System.out.println(response.eTag());
-        } catch (S3Exception e) {
-            System.err.println(e.getMessage());
+        if (buckets.size() == 0) {
+            System.err.println("No buckets found!");
             System.exit(1);
         }
+
+        for (Bucket b : buckets) {
+            System.out.println(b.getName());
+        }
+
+        PutObjectResult resp = svc.putObject(bucketName, "javatest", "hello world");
+        System.out.println(resp.getETag());
     }
 }

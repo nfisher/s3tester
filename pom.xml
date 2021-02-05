@@ -59,9 +59,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>software.amazon.awssdk</groupId>
-                <artifactId>bom</artifactId>
-                <version>2.15.76</version>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-bom</artifactId>
+                <version>1.11.949</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -75,20 +75,20 @@
             <version>1.7.25</version>
         </dependency>
         <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>s3</artifactId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <groupId>com.amazonaws</groupId>
         </dependency>
         <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>sts</artifactId>
+            <artifactId>aws-java-sdk-sts</artifactId>
+            <groupId>com.amazonaws</groupId>
         </dependency>
         <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>kms</artifactId>
+            <artifactId>aws-java-sdk-kms</artifactId>
+            <groupId>com.amazonaws</groupId>
         </dependency>
         <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>s3control</artifactId>
+            <artifactId>aws-java-sdk-s3control</artifactId>
+            <groupId>com.amazonaws</groupId>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
